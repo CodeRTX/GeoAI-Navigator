@@ -13,6 +13,11 @@ import { SplitLayout } from "@googlemaps/extended-component-library/split_layout
 import Base64 from "base64-js";
 import "./style.css";
 
+// Add a delay function here
+function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // TODO: Get a Gemini API key:
 /*
  * 1. Open the Project IDX view by pressing Ctrl+Shift+P / Cmd+Shift+P and type "IDX focus", then select "IDX: Focus on Project IDX View"
@@ -95,7 +100,7 @@ form.addEventListener("submit", async (e) => {
     // Call the gemini-pro-vision model, and get a stream of results
     const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({
-      model: "gemini-pro-vision",
+      model: "gemini-2.5-flash",
       safetySettings: [
         {
           category: HarmCategory.HARM_CATEGORY_HARASSMENT,
@@ -103,6 +108,8 @@ form.addEventListener("submit", async (e) => {
         },
       ],
     });
+
+    await delay(60000); // This will wait for 60 seconds
 
     // Read from the stream and render the output
     const result = await model.generateContentStream({ contents });

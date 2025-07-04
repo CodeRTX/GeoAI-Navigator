@@ -84,10 +84,8 @@ async function generateReviewTitle() {
     outputHTML.innerHTML = `<h2>${promptTitle.value}</h2><p>${reviewText}</p>`;
   } else {
     // Fallback to Gemini API
-    const genAI = new GoogleGenerativeAI(
-      "AIzaSyA8bYErDRE8xfRAIvZJkL06l0oMp5wHVx8"
-    );
-    const model = await genAI.getGenerativeModel({ model: "gemini-pro" });
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    const model = await genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const result = await model.generateContent([
       `Generate a catchy title for this travel review: ${reviewText} to ${placeName}`,
     ]);
@@ -163,10 +161,8 @@ async function checkToxicity() {
     // outputHTML.innerHTML = (`Tone Score: ${toxicityScore}`); // Or display in a more user-friendly way
 
     // Fallback to Gemini API
-    const genAI = new GoogleGenerativeAI(
-      "AIzaSyA8bYErDRE8xfRAIvZJkL06l0oMp5wHVx8"
-    );
-    const model = await genAI.getGenerativeModel({ model: "gemini-pro" });
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    const model = await genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const result = await model.generateContent([
       `Analyze the toxicity level of this text:: ${reviewText}`,
     ]);
@@ -199,10 +195,8 @@ async function runBuiltInAIModel(streaming) {
 
 // Function to run the Gemini API model
 async function runGeminiAPIModel(streaming) {
-  const genAI = new GoogleGenerativeAI(
-    "AIzaSyA8bYErDRE8xfRAIvZJkL06l0oMp5wHVx8"
-  );
-  const model = await genAI.getGenerativeModel({ model: "gemini-pro" });
+  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+  const model = await genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
   outputHTML.innerHTML = "Generating answer...Please wait...";
 
   if (streaming) {
