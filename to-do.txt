@@ -1,3 +1,0 @@
-add an .img to Social preview (in Github repo)
-
-Github PAT- '***' (for only 30 days)

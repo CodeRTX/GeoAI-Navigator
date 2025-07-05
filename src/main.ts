@@ -109,7 +109,7 @@ form.addEventListener("submit", async (e) => {
       ],
     });
 
-    await delay(60000); // This will wait for 60 seconds
+    await delay(1000); // This will wait for 1 second
 
     // Read from the stream and render the output
     const result = await model.generateContentStream({ contents });
@@ -169,36 +169,31 @@ function initMap() {
  *  Sample: https://developers.google.com/maps/documentation/javascript/examples/geocoding-simple
  *  Docs: https://developers.google.com/maps/documentation/javascript/geocoding
  */
-async function geocodePlace(
-  name: string
-): Promise<google.maps.GeocoderResult | void> {
-  // prettier-ignore
+async function geocodePlace(name: string): Promise<google.maps.GeocoderResult> {
   const { Geocoder } = (await APILoader.importLibrary("geocoding")) as google.maps.GeocodingLibrary;
-
   const geocoder = new Geocoder();
   const request = {
     address: name,
   };
-
   try {
-    // prettier-ignore
-    const { LatLngAltitude } = (await APILoader.importLibrary("core")) as google.maps.CoreLibrary;
-    const { results } = await geocoder.geocode(request);
+      const { LatLngAltitude } = (await APILoader.importLibrary("core")) as google.maps.CoreLibrary;
+      const { results } = await geocoder.geocode(request);
+      if (!results || results.length === 0) {
+        throw new Error("No results found for the given place name.");
+    }
     const geocodedPlace = results[0];
-
     const newCenter = new LatLngAltitude({
       lat: geocodedPlace.geometry.location.lat() - 0.005,
       lng: geocodedPlace.geometry.location.lng(),
       altitude: 200,
-    });
-    map.center = newCenter;
-    map.heading = 0;
-
-    return geocodedPlace;
-  } catch (error) {
-    console.log(
-      "Geocode was not successful for the following reason: " + error
-    );
+  });
+  map.center = newCenter;
+  map.heading = 0;
+  return geocodedPlace;
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("Geocode was not successful for the following reason: " + errorMessage);
+    throw new Error("Geocoding failed: " + errorMessage);
   }
 }
 
@@ -210,34 +205,36 @@ async function geocodePlace(
  * 2. Search nearby
  *    - Sample and Docs: https://developers.google.com/maps/documentation/javascript/nearby-search
  */
-async function findNearbyLodging(location: google.maps.LatLng) {
-  // prettier-ignore
-  const { Place, SearchNearbyRankPreference } = (await APILoader.importLibrary("places")) as google.maps.PlacesLibrary;
-
-  // use Place.searchNearby to find lodging with a location bias of location
-  const request: google.maps.places.SearchNearbyRequest = {
-    // required parameters
-    fields: ["id", "location"],
-    locationRestriction: {
-      center: location,
-      radius: 10000,
-    },
-    // optional parameters
-    includedTypes: ["lodging"],
-    maxResultCount: 10,
-    rankPreference: SearchNearbyRankPreference.POPULARITY,
-  };
-
+async function findNearbyLodging(location: google.maps.LatLng): Promise<void>
+{
+const { Place, SearchNearbyRankPreference } = (await APILoader.importLibrary("places")) as google.maps.PlacesLibrary;
+const request: google.maps.places.SearchNearbyRequest = {
+  fields: ["id", "location", "displayName"],
+  locationRestriction: {
+  center: location,
+  radius: 10000,
+  },
+  includedTypes: ["lodging"],
+  maxResultCount: 10,
+  rankPreference: SearchNearbyRankPreference.POPULARITY,
+};
+try {
   const { places } = await Place.searchNearby(request);
-
   if (places.length) {
     console.log(`found ${places.length} lodging`);
-
     addResults(places);
-  } else {
-    console.log("No results");
+} else {
+  console.log("No lodging results found.");
+  // Optionally, throw an error if no results is considered an error condition
+}
+} catch (error: unknown) {
+  const errorMessage = error instanceof Error ? error.message :
+  String(error);
+  console.error("Search for nearby lodging failed: " + errorMessage);
+  throw new Error("Failed to find nearby lodging: " + errorMessage);
   }
 }
+
 
 /*
  * Add and populate a Place Overview component in a Split Layout with the map
