@@ -1,41 +1,90 @@
-# Using the Gemini API and Google Maps Platform with TypeScript
+# GeoAI-Navigator
 
-This template provides a sample app demonstrating use of the Gemini API with multimodal inputs (images and text) and the Google Maps JavaScript API.
+A sample web application demonstrating how to integrate Google’s Gemini generative AI with the Google Maps Platform (Maps JavaScript API) using TypeScript and Vite.
 
-## Prerequisites
+## Table of ContentsFeatures
 
-### Gemini API
-
-In order for the Gemini API features to work, you'll need to add a Gemini API key as a local variable.
-
-1. Open the Project IDX view by pressing Ctrl+Shift+P / Cmd+Shift+P and type "IDX focus", then select "IDX: Focus on Project IDX View"
-2. Click on the "Gemini API" integration and authenticate.
-3. Click "Get API Key" to get an API key.
-4. Create or open a file named .env.local in the root directory. The .local suffix keeps secrets out of source control.
-5. In the file, add the line: VITE_GEMINI_API_KEY=YOUR_API_KEY.
-6. Replace YOUR_API_KEY with the API key you got in step 3.
-
-### Google Maps Platform, Maps JavaScript API
-
-In order for the Maps JavaScript API features to work, you'll need to add a Google Maps Platform API key as a local variable.
-
-1. Open the Project IDX view by pressing Ctrl+Shift+P / Cmd+Shift+P and type "IDX focus", then select "IDX: Focus on Project IDX View"
-2. Click on the "Google Maps Platform" integration.
-3. Click "Enable APIs" to enable the Google Maps Platform APIs.
-4. Click "Get API Key" to get an API key.
-5. Create or open the file named .env.local in the root directory. The .local suffix keeps secrets out of source control.
-6. In the file, add the line: VITE_MAPS_API_KEY=YOUR_API_KEY.
-7. Replace YOUR_API_KEY with the API key you got in step 4.
+1. [Features](#features)
+2. [Prerequisites](#prerequisites)
+3. [Getting Started](#getting-started)
+4. [Environment Variables](#environment-variables)
+5. [Folder Structure](#folder-structure)
+6. [Usage](#usage)
+7. [Contributing](#contributing)
+8. [License](#license)
 
 ## Features
 
-Most of the code powering the features of this sample are in the `src/main.ts` file.
+- **Multimodal Place Recognition**: Upload an image and ask the Gemini API “Where can I see this?”
+- **Text Prompt Refinement**: Use the Gemini API to enhance and refine user-generated review text.
+- **Photorealistic 3D Map** (Experimental): Render a tilt‑and‑heading controlled 3D map view.
+- **Geocoding**: Convert AI‑generated place names into latitude/longitude coordinates.
+- **Nearby Lodging Search**: Retrieve and display lodging options around the identified location.
+- **Split-Layout UI**: Display interactive map and place overview cards in a responsive split layout using Google’s Extended Component Library.
 
-### Gemini API
+## Prerequisites
 
-- Image + text prompt: When the user selects an image and presses the "Where can I see this?" button, that image and a text prompt are sent to the Gemini API.
-- Text-only prompt: The Gemini API is used to augment and refine the draft review of a destination.
+- Node.js (v16+)
+- npm or yarn
+- A Google Cloud project with:
+  - **Gemini AI** enabled
+  - **Maps JavaScript API** enabled
 
+## Getting Started
+
+1. Clone the repository
+  ```bash
+  git clone https://github.com/CodeRTX/GeoAI-Navigator.git
+  cd GeoAI-Navigator
+  ```
+2. Install dependencies
+  ```bash
+  npm install
+  # or
+  yarn install
+  ```
+3. Setup environment variables (see [Environment Variables](#environment-variables))
+4. Start the development server
+  ```bash
+  npm run dev
+  # or
+  yarn devVisit
+  ```
+5. `http://localhost:5173` in your browser.
+
+## Environment Variables
+
+Create a file named `.env.local` in the project root with the following keys:
+  VITE_GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+  VITE_MAPS_API_KEY=YOUR_GOOGLE_MAPS_API_KEY
+> **Note**: The `.local` suffix prevents accidental commits of sensitive keys to source control.
+
+## Folder Structure
+
+GeoAI-Navigator/
+├── public/                # Static assets (index.html, favicon)
+├── src/                   # Application source code
+│   ├── main.ts            # Entry point
+│   └── style.css          # Basic styles
+├── .env.local             # Environment variables (not shown)
+├── .gitignore
+├── package.json
+├── tsconfig.json
+├── vite.config.js
+└── README.md
+
+## Usage
+
+  -Placeholder-
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request with a clear description of your changes.
+
+## License
+
+This project is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+  
 ### Google Maps Platform, Maps JavaScript API
 
 - [Photorealistic 3D map (Experimental)](https://developers.google.com/maps/documentation/javascript/3d-maps-overview) in the Maps JavaScript API
