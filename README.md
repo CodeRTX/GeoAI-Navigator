@@ -77,7 +77,7 @@ GeoAI-Navigator/
 
 ## Usage
 
-  -Placeholder-
+  [](https://github.com/CodeRTX/GeoAI-Navigator/blob/main/image.JPG)
 
 ## Contributing
 
