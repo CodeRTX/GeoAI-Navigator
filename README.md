@@ -61,6 +61,7 @@ Create a file named `.env.local` in the project root with the following keys:
 
 ## Folder Structure
 
+
 GeoAI-Navigator/
 ├── public/                # Static assets (index.html, favicon)
 ├── src/                   # Application source code
@@ -72,6 +73,7 @@ GeoAI-Navigator/
 ├── tsconfig.json
 ├── vite.config.js
 └── README.md
+
 
 ## Usage
 
