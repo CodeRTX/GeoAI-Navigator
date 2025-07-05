@@ -87,7 +87,7 @@ Contributions are welcome! Please open an issue or submit a pull request with a 
 
 This project is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
   
-## Google Maps Platform, Maps JavaScript API
+## References & Resources
 
 - [Photorealistic 3D map (Experimental)](https://developers.google.com/maps/documentation/javascript/3d-maps-overview) in the Maps JavaScript API
 - [Geocoding Service](https://developers.google.com/maps/documentation/javascript/geocoding), Maps JavaScript API
