@@ -77,7 +77,7 @@ GeoAI-Navigator/
 
 ## Usage
 
-  [](https://github.com/CodeRTX/GeoAI-Navigator/blob/main/image.JPG)
+![App demo](https://github.com/CodeRTX/GeoAI-Navigator/blob/main/image.JPG)
 
 ## Contributing
 
